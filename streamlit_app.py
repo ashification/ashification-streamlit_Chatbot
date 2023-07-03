@@ -15,7 +15,7 @@ def check_password():
     def password_entered():
         """Checks whether a password entered by the user is correct."""
         if (
-            st.session_state["username"] in st.secrets["passwords"]
+            st.session_state["username"] in st.secrets["passwords"] 
             and st.session_state["password"]
             == st.secrets["passwords"][st.session_state["username"]]
         ):
@@ -45,17 +45,16 @@ def check_password():
         # Password correct.
         return True
 
+if check_password():
+    st.title("💬 Chatbot")
+    if "messages" not in st.session_state:
+        st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
 
-st.title("💬 Chatbot")
-if "messages" not in st.session_state:
-    st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
+    # Hugging Face Credentials
+    with st.sidebar:
+        st.title('Group 3 Login')
+        #st.write('User:', uName_Check, 'Pass', pwd_Check)
 
-# Hugging Face Credentials
-with st.sidebar:
-    st.title('Group 3 Login')
-    #st.write('User:', uName_Check, 'Pass', pwd_Check)
-
-    if check_password():
         st.success('Successful Login!', icon='✅')
         openai_api_key = st.text_input("OpenAI API Key", key="chatbot_api_key", type="password")
         button = st.button("Log Out")    
@@ -63,18 +62,18 @@ with st.sidebar:
             st.session_state["password_correct"] = False      
 
 
-for msg in st.session_state.messages:
-    st.chat_message(msg["role"]).write(msg["content"])
+    for msg in st.session_state.messages:
+        st.chat_message(msg["role"]).write(msg["content"])
 
-if prompt := st.chat_input():
-    if not openai_api_key:
-        st.info("Please add your OpenAI API key to continue.")
-        st.stop()
+    if prompt := st.chat_input():
+        if not openai_api_key:
+            st.info("Please add your OpenAI API key to continue.")
+            st.stop()
 
-    openai.api_key = openai_api_key
-    st.session_state.messages.append({"role": "user", "content": prompt})
-    st.chat_message("user").write(prompt)
-    response = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=st.session_state.messages)
-    msg = response.choices[0].message
-    st.session_state.messages.append(msg)
-    st.chat_message("assistant").write(msg.content)
+        openai.api_key = openai_api_key
+        st.session_state.messages.append({"role": "user", "content": prompt})
+        st.chat_message("user").write(prompt)
+        response = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=st.session_state.messages)
+        msg = response.choices[0].message
+        st.session_state.messages.append(msg)
+        st.chat_message("assistant").write(msg.content)
