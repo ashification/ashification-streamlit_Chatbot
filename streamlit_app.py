@@ -18,7 +18,7 @@ with st.sidebar:
     st.title('Group 3 Login')
     #st.write('User:', uName_Check, 'Pass', pwd_Check)
 
-    if (hf_email == st.secrets['EMAIL']) and (hf_pass == st.secrets['PASS']):
+    if ('EMAIL' in st.secrets) and ('PASS' in st.secrets):
         st.success('Successful Login!', icon='✅')
         openai_api_key = st.text_input("OpenAI API Key", key="chatbot_api_key", type="password")
         button = st.button("Log Out")    
