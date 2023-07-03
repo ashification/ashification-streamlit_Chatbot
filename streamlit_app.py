@@ -19,8 +19,10 @@ with st.sidebar:
     st.title('Group 3 Login')
     #st.write('User:', uName_Check, 'Pass', pwd_Check)
     st.write('User: ', st.secrets['EMAIL'],'  Pass:', st.secrets['PASS'])
+    if "password_correct" not in st.session_state:
+        st.session_state["password_correct"] = False
 
-    if "password_correct" not in st.session_state or st.session_state["password_correct"] == False :
+    if st.session_state["password_correct"] == False :
         hf_email = st.text_input('Enter Username:')
         hf_pass = st.text_input('Enter password:', type='password')
         st.write('User: ', hf_email,' Pass: ', hf_pass)
