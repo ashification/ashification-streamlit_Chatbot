@@ -8,8 +8,8 @@ from hugchat.login import Login
 #uName_Check = os.environ.get("GENAI_CHATBOT_USERNAME")
 #pwd_Check = os.environ.get("GENAI_CHATBOT_PASSWORD")
 #API_KEY = os.environ.get("GENAI_CHATBOT_APIKEY")
-#hf_email = ""
-#hf_pass = ""
+hf_email = ""
+hf_pass = ""
 
 
 st.title("💬 Chatbot")
@@ -21,7 +21,7 @@ with st.sidebar:
     st.title('Group 3 Login')
     #st.write('User:', uName_Check, 'Pass', pwd_Check)
 
-    if ('EMAIL' in st.secrets) and ('PASS' in st.secrets):
+    if (hf_email in st.secrets) and ('hf_pass' in st.secrets):
         st.success('Successful Login!', icon='✅')
         openai_api_key = st.text_input("OpenAI API Key", key="chatbot_api_key", type="password")
         button = st.button("Log Out")    
