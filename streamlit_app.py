@@ -5,9 +5,9 @@ import streamlit as st
 from hugchat import hugchat
 from hugchat.login import Login
 
-uName_Check = os.environ.get('GENAI_CHATBOT_USERNAME')
-pwd_Check = os.environ.get('GENAI_CHATBOT_PASSWORD')
-API_KEY = os.environ.get('GENAI_CHATBOT_APIKEY')
+uName_Check = os.environ.get("GENAI_CHATBOT_USERNAME")
+pwd_Check = os.environ.get("GENAI_CHATBOT_PASSWORD")
+API_KEY = os.environ.get("GENAI_CHATBOT_APIKEY")
 hf_email = ""
 hf_pass = ""
 
