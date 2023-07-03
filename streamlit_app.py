@@ -17,18 +17,16 @@ if "messages" not in st.session_state:
 # Hugging Face Credentials
 with st.sidebar:
     st.title('Group 3 Login')
-    hf_email = st.text_input('Enter Username:', type='password')
-    hf_pass = st.text_input('Enter password:', type='password')
-
-    
+       
     if (hf_email in uName_Check and hf_pass in pwd_Check):
         st.success('HuggingFace Login credentials already provided!', icon='✅')
+        hf_email = uName_Check
+        hf_pass = pwd_Check
         openai_api_key = st.text_input("OpenAI API Key", key="chatbot_api_key", type="password")
-        "[View the source code](https://github.com/streamlit/llm-examples/blob/main/Chatbot.py)"
-        "[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/streamlit/llm-examples?quickstart=1)"
-
     else:
         st.warning('Please enter your credentials!', icon='⚠️')
+        hf_email = st.text_input('Enter Username:', type='password')
+        hf_pass = st.text_input('Enter password:', type='password')
         
 
 
