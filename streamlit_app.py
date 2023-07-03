@@ -33,7 +33,6 @@ with st.sidebar:
 
     else:
         st.success('Successful Login!', icon='✅')
-        st.write('Welcome User: ', hf_email)
         openai_api_key = st.text_input("OpenAI API Key", key="chatbot_api_key", type="password")
         button = st.button("Log Out")    
         if button:
