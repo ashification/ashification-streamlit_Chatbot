@@ -21,13 +21,14 @@ if "messages" not in st.session_state:
 # Hugging Face Credentials
 with st.sidebar:
     st.title('🤗💬 HugChat')
-    hf_email = st.text_input('Enter E-mail:', type='password')
-    hf_pass = st.text_input('Enter password:', type='password')
-    
     if (hf_email in uName_Check and hf_pass in pwd_Check):
         st.success('HuggingFace Login credentials already provided!', icon='✅')
+        hf_email = st.secrets['EMAIL']
+        hf_pass = st.secrets['PASS']
     else:
         st.warning('Please enter your credentials!', icon='⚠️')
+        hf_email = st.text_input('Enter E-mail:', type='password')
+        hf_pass = st.text_input('Enter password:', type='password')
         
 
 
