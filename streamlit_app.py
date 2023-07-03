@@ -5,11 +5,11 @@ import streamlit as st
 from hugchat import hugchat
 from hugchat.login import Login
 
-uName_Check = os.environ.get("GENAI_CHATBOT_USERNAME")
-pwd_Check = os.environ.get("GENAI_CHATBOT_PASSWORD")
-API_KEY = os.environ.get("GENAI_CHATBOT_APIKEY")
-hf_email = ""
-hf_pass = ""
+#uName_Check = os.environ.get("GENAI_CHATBOT_USERNAME")
+#pwd_Check = os.environ.get("GENAI_CHATBOT_PASSWORD")
+#API_KEY = os.environ.get("GENAI_CHATBOT_APIKEY")
+#hf_email = ""
+#hf_pass = ""
 
 st.title("💬 Chatbot")
 if "messages" not in st.session_state:
@@ -19,11 +19,14 @@ if "messages" not in st.session_state:
 with st.sidebar:
     st.title('Group 3 Login')
     st.write('User:', uName_Check, 'Pass', pwd_Check)
-       
-    if (hf_email == uName_Check and hf_pass == pwd_Check):
+
+    #if (hf_email == uName_Check and hf_pass == pwd_Check):   
+    if ('EMAIL' in st.secrets) and ('PASS' in st.secrets):
         st.success('HuggingFace Login credentials already provided!', icon='✅')
-        hf_email = uName_Check
-        hf_pass = pwd_Check
+        hf_email = st.secrets['EMAIL']
+        hf_pass = st.secrets['PASS']
+        #hf_email = uName_Check
+        #hf_pass = pwd_Check
         openai_api_key = st.text_input("OpenAI API Key", key="chatbot_api_key", type="password")
     else:
         st.warning('Please enter your credentials!', icon='⚠️')
