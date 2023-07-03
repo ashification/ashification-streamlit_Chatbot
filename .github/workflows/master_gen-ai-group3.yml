@@ -10,6 +10,11 @@ on:
       - master
   workflow_dispatch:
 
+env:
+    GENAI_CHATBOT_USERNAME: ${{secrets.GENAI_CHATBOT_USERNAME}}
+    GENAI_CHATBOT_PASSWORD: ${{secrets.GENAI_CHATBOT_PASSWORD}}
+    GENAI_CHATBOT_APIKEY: ${{secrets.GENAI_CHATBOT_APIKEY}}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -29,13 +34,7 @@ jobs:
       
       - name: Install dependencies
         run: pip install -r requirements.txt
-      
-      - name: Declaring environment secrets
-        env:
-          GENAI_CHATBOT_USERNAME: ${{secrets.GENAI_CHATBOT_USERNAME}}
-          GENAI_CHATBOT_PASSWORD: ${{secrets.GENAI_CHATBOT_PASSWORD}}
-          GENAI_CHATBOT_APIKEY: ${{secrets.GENAI_CHATBOT_APIKEY}}
-        
+              
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
       
       - name: Upload artifact for deployment jobs
