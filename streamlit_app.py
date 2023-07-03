@@ -9,6 +9,43 @@ from hugchat.login import Login
 #pwd_Check = os.environ.get("GENAI_CHATBOT_PASSWORD")
 #API_KEY = os.environ.get("GENAI_CHATBOT_APIKEY")
 
+def check_password():
+    """Returns `True` if the user had a correct password."""
+
+    def password_entered():
+        """Checks whether a password entered by the user is correct."""
+        if (
+            st.session_state["username"] in st.secrets["passwords"]
+            and st.session_state["password"]
+            == st.secrets["passwords"][st.session_state["username"]]
+        ):
+            st.session_state["password_correct"] = True
+            del st.session_state["password"]  # don't store username + password
+            del st.session_state["username"]
+        else:
+            st.session_state["password_correct"] = False
+
+    if "password_correct" not in st.session_state:
+        # First run, show inputs for username + password.
+        st.text_input("Username", key="username")
+        st.text_input(
+            "Password", type="password", on_change=password_entered, key="password"
+        )
+        return False
+    elif not st.session_state["password_correct"]:
+        # Password not correct, show input + error.
+        st.text_input("Username", key="username")
+        st.text_input(
+            "Password", type="password", on_change=password_entered, key="password"
+        )
+        #st.error("😕 User not known or password incorrect")
+        st.warning('Please enter your credentials!', icon='⚠️')
+        return False
+    else:
+        # Password correct.
+        return True
+
+
 st.title("💬 Chatbot")
 if "messages" not in st.session_state:
     st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
@@ -18,20 +55,12 @@ with st.sidebar:
     st.title('Group 3 Login')
     #st.write('User:', uName_Check, 'Pass', pwd_Check)
 
-    if ('EMAIL' in st.secrets) and ('PASS' in st.secrets):
+    if check_password():
         st.success('Successful Login!', icon='✅')
         openai_api_key = st.text_input("OpenAI API Key", key="chatbot_api_key", type="password")
         button = st.button("Log Out")    
         if button:
-            hf_email = ""
-            hf_pass = ""
-        else:
-            hf_email = st.secrets['EMAIL']
-            hf_pass = st.secrets['PASS']
-    else:
-        st.warning('Please enter your credentials!', icon='⚠️')
-        hf_email = st.text_input('Enter Username:')
-        hf_pass = st.text_input('Enter password:', type='password')
+            st.session_state["password_correct"] = False      
 
 
 for msg in st.session_state.messages:
