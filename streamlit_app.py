@@ -19,20 +19,28 @@ if "messages" not in st.session_state:
 with st.sidebar:
     st.title('Group 3 Login')
     #st.write('User:', uName_Check, 'Pass', pwd_Check)
-
-    #if (hf_email == uName_Check and hf_pass == pwd_Check):   
-    if ('EMAIL' in st.secrets) and ('PASS' in st.secrets):
-        st.success('HuggingFace Login credentials already provided!', icon='✅')
-        hf_email = st.secrets['EMAIL']
-        hf_pass = st.secrets['PASS']
-        #hf_email = uName_Check
-        #hf_pass = pwd_Check
+    if "usr_session" in st.session_state:
+        button = st.button("Log Out")    
+        if button:
+            st.session_state.usr_session = False
         openai_api_key = st.text_input("OpenAI API Key", key="chatbot_api_key", type="password")
     else:
-        st.warning('Please enter your credentials!', icon='⚠️')
         hf_email = st.text_input('Enter Username:', type='password')
         hf_pass = st.text_input('Enter password:', type='password')
         
+        #if (hf_email == uName_Check and hf_pass == pwd_Check):   
+        if (hf_email in st.secrets) and (hf_pass in st.secrets):
+            st.success('Successful Login!', icon='✅')
+            st.session_state.usr_session = True
+           
+            #hf_email = st.secrets['EMAIL']
+            #hf_pass = st.secrets['PASS']
+            #hf_email = uName_Check
+            #hf_pass = pwd_Check
+            
+        else:
+            st.warning('Please enter valid credentials!', icon='⚠️')
+    
 
 
 for msg in st.session_state.messages:
