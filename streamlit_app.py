@@ -31,13 +31,11 @@ with st.sidebar:
             else:
                 st.warning('Please enter your credentials!', icon='⚠️')
 
-    else:
+    if "password_correct" in st.session_state:
         st.success('Successful Login!', icon='✅')
         openai_api_key = st.text_input("OpenAI API Key", key="chatbot_api_key", type="password")
         button = st.button("Log Out")    
         if button:
-            hf_email = ""
-            hf_pass = ""
             st.session_state["password_correct"] = False 
 
 
