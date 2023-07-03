@@ -30,7 +30,7 @@ with st.sidebar:
         if button:
             if (hf_email == st.secrets['EMAIL']) and (hf_pass == st.secrets['PASS']):
                 st.session_state["password_correct"] = True 
-                break
+                exit
             else:
                 st.warning('Please enter your credentials!', icon='⚠️')
 
@@ -40,7 +40,7 @@ with st.sidebar:
         button = st.button("Log Out")    
         if button:
             st.session_state["password_correct"] = False 
-            return
+            exit
 
 
 
