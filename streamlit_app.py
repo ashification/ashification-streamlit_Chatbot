@@ -8,7 +8,8 @@ from hugchat.login import Login
 uName_Check = os.environ.get('GENAI_CHATBOT_USERNAME')
 pwd_Check = os.environ.get('GENAI_CHATBOT_PASSWORD')
 API_KEY = os.environ.get('GENAI_CHATBOT_APIKEY')
-
+hf_email = ""
+hf_pass = ""
 
 st.title("💬 Chatbot")
 if "messages" not in st.session_state:
@@ -18,7 +19,7 @@ if "messages" not in st.session_state:
 with st.sidebar:
     st.title('Group 3 Login')
        
-    if (hf_email in uName_Check and hf_pass in pwd_Check):
+    if (hf_email == uName_Check and hf_pass == pwd_Check):
         st.success('HuggingFace Login credentials already provided!', icon='✅')
         hf_email = uName_Check
         hf_pass = pwd_Check
