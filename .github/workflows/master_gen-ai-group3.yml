@@ -10,6 +10,11 @@ on:
       - master
   workflow_dispatch:
 
+env:
+    GENAI_CHATBOT_USERNAME: ${{secrets.GENAI_CHATBOT_USERNAME}}
+    GENAI_CHATBOT_PASSWORD: ${{secrets.GENAI_CHATBOT_PASSWORD}}
+    GENAI_CHATBOT_APIKEY: ${{secrets.GENAI_CHATBOT_APIKEY}}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -23,10 +28,6 @@ jobs:
           python-version: '3.10'
 
       - name: Create and start virtual environment
-        env:
-            GENAI_CHATBOT_USERNAME: ${{secrets.GENAI_CHATBOT_USERNAME}}
-            GENAI_CHATBOT_PASSWORD: ${{secrets.GENAI_CHATBOT_PASSWORD}}
-            GENAI_CHATBOT_APIKEY: ${{secrets.GENAI_CHATBOT_APIKEY}}
         run: |
           python -m venv venv
           source venv/bin/activate
