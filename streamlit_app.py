@@ -18,18 +18,16 @@ if "messages" not in st.session_state:
 with st.sidebar:
     st.title('Group 3 Login')
     #st.write('User:', uName_Check, 'Pass', pwd_Check)
-    st.write('User:', st.secrets['EMAIL'],'Pass', st.secrets['PASS'])
+    st.write('User: ', st.secrets['EMAIL'],'  Pass:', st.secrets['PASS'])
 
     if "password_correct" not in st.session_state:
         st.warning('Please enter your credentials!', icon='⚠️')
         hf_email = st.text_input('Enter E-mail:', type='password')
         hf_pass = st.text_input('Enter password:', type='password')
-        st.write('User:', hf_pass,'Pass', hf_email)
+        st.write('User: ', hf_email,' Pass: ', hf_pass)
         button = st.button("Log in")    
         if button:
-            if ('EMAIL' in st.secrets) and ('PASS' in st.secrets):
-                hf_email = st.secrets['EMAIL']
-                hf_pass = st.secrets['PASS']
+            if (hf_email == st.secrets['EMAIL']) and (hf_pass == st.secrets['PASS']):
                 st.session_state["password_correct"] = True 
 
     else:
