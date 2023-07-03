@@ -9,10 +9,6 @@ uName_Check = os.environ.get('GENAI_CHATBOT_USERNAME')
 pwd_Check = os.environ.get('GENAI_CHATBOT_PASSWORD')
 API_KEY = os.environ.get('GENAI_CHATBOT_APIKEY')
 
-with st.sidebar:
-    openai_api_key = st.text_input("OpenAI API Key", key="chatbot_api_key", type="password")
-    "[View the source code](https://github.com/streamlit/llm-examples/blob/main/Chatbot.py)"
-    "[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/streamlit/llm-examples?quickstart=1)"
 
 st.title("💬 Chatbot")
 if "messages" not in st.session_state:
@@ -20,15 +16,19 @@ if "messages" not in st.session_state:
 
 # Hugging Face Credentials
 with st.sidebar:
-    st.title('🤗💬 HugChat')
+    st.title('Group 3 Login')
+    hf_email = st.text_input('Enter Username:', type='password')
+    hf_pass = st.text_input('Enter password:', type='password')
+
+    
     if (hf_email in uName_Check and hf_pass in pwd_Check):
         st.success('HuggingFace Login credentials already provided!', icon='✅')
-        hf_email = st.secrets['EMAIL']
-        hf_pass = st.secrets['PASS']
+        openai_api_key = st.text_input("OpenAI API Key", key="chatbot_api_key", type="password")
+        "[View the source code](https://github.com/streamlit/llm-examples/blob/main/Chatbot.py)"
+        "[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/streamlit/llm-examples?quickstart=1)"
+
     else:
         st.warning('Please enter your credentials!', icon='⚠️')
-        hf_email = st.text_input('Enter E-mail:', type='password')
-        hf_pass = st.text_input('Enter password:', type='password')
         
 
 
