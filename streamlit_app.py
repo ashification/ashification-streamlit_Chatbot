@@ -21,14 +21,16 @@ with st.sidebar:
     st.write('User: ', st.secrets['EMAIL'],'  Pass:', st.secrets['PASS'])
 
     if "password_correct" not in st.session_state:
-        st.warning('Please enter your credentials!', icon='⚠️')
-        hf_email = st.text_input('Enter E-mail:', type='password')
+        
+        hf_email = st.text_input('Enter Username:')
         hf_pass = st.text_input('Enter password:', type='password')
         st.write('User: ', hf_email,' Pass: ', hf_pass)
         button = st.button("Log in")    
         if button:
             if (hf_email == st.secrets['EMAIL']) and (hf_pass == st.secrets['PASS']):
                 st.session_state["password_correct"] = True 
+            else:
+                st.warning('Please enter your credentials!', icon='⚠️')
 
     else:
         st.success('Successful Login!', icon='✅')
@@ -36,6 +38,8 @@ with st.sidebar:
         button = st.button("Log Out")    
         if button:
             st.session_state["password_correct"] = False 
+            hf_email = ""
+            hf_pass = ""
 
 
 
