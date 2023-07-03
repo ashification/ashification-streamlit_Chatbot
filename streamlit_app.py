@@ -1,6 +1,8 @@
 """ File to run chat bot app"""
 import openai
 import streamlit as st
+from hugchat import hugchat
+from hugchat.login import Login
 
 with st.sidebar:
     openai_api_key = st.text_input("OpenAI API Key", key="chatbot_api_key", type="password")
@@ -10,6 +12,19 @@ with st.sidebar:
 st.title("💬 Chatbot")
 if "messages" not in st.session_state:
     st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
+
+# Hugging Face Credentials
+with st.sidebar:
+    st.title('🤗💬 HugChat')
+    if ('EMAIL' in st.secrets) and ('PASS' in st.secrets):
+        st.success('HuggingFace Login credentials already provided!', icon='✅')
+        hf_email = st.secrets['EMAIL']
+        hf_pass = st.secrets['PASS']
+    else:
+        st.warning('Please enter your credentials!', icon='⚠️')
+        hf_email = st.text_input('Enter E-mail:', type='password')
+        hf_pass = st.text_input('Enter password:', type='password')
+
 
 for msg in st.session_state.messages:
     st.chat_message(msg["role"]).write(msg["content"])
