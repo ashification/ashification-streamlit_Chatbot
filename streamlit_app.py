@@ -5,6 +5,7 @@ import streamlit as st
 from hugchat import hugchat
 from hugchat.login import Login
 
+#Utilising github env variable secrets
 #uName_Check = os.environ.get("GENAI_CHATBOT_USERNAME")
 #pwd_Check = os.environ.get("GENAI_CHATBOT_PASSWORD")
 #API_KEY = os.environ.get("GENAI_CHATBOT_APIKEY")
@@ -17,20 +18,17 @@ if "messages" not in st.session_state:
 # Hugging Face Credentials
 with st.sidebar:
     st.title('Group 3 Login')
-    #st.write('User:', uName_Check, 'Pass', pwd_Check)
-    st.write('User: ', st.secrets['EMAIL'],'  Pass:', st.secrets['PASS'])
+    #st.write('Debug', hf_email)
     if "password_correct" not in st.session_state:
         st.session_state["password_correct"] = False
 
     if st.session_state["password_correct"] == False :
         hf_email = st.text_input('Enter Username:')
         hf_pass = st.text_input('Enter password:', type='password')
-        st.write('User: ', hf_email,' Pass: ', hf_pass)
         button = st.button("Log in")    
         if button:
             if (hf_email == st.secrets['EMAIL']) and (hf_pass == st.secrets['PASS']):
                 st.session_state["password_correct"] = True 
-                exit
             else:
                 st.warning('Please enter your credentials!', icon='⚠️')
 
@@ -40,14 +38,6 @@ with st.sidebar:
         button = st.button("Log Out")    
         if button:
             st.session_state["password_correct"] = False 
-            exit
-
-
-
-
-
-    
-
 
 for msg in st.session_state.messages:
     st.chat_message(msg["role"]).write(msg["content"])
