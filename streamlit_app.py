@@ -18,7 +18,7 @@ if "messages" not in st.session_state:
 # Hugging Face Credentials
 with st.sidebar:
     st.title('Group 3 Login')
-    st.write('User:', uName_Check, 'Pass', pwd_Check)
+    #st.write('User:', uName_Check, 'Pass', pwd_Check)
 
     #if (hf_email == uName_Check and hf_pass == pwd_Check):   
     if ('EMAIL' in st.secrets) and ('PASS' in st.secrets):
