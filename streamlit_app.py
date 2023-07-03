@@ -21,7 +21,6 @@ with st.sidebar:
     st.write('User: ', st.secrets['EMAIL'],'  Pass:', st.secrets['PASS'])
 
     if "password_correct" not in st.session_state:
-        
         hf_email = st.text_input('Enter Username:')
         hf_pass = st.text_input('Enter password:', type='password')
         st.write('User: ', hf_email,' Pass: ', hf_pass)
@@ -34,12 +33,14 @@ with st.sidebar:
 
     else:
         st.success('Successful Login!', icon='✅')
+        st.write('Welcome User: ', hf_email)
         openai_api_key = st.text_input("OpenAI API Key", key="chatbot_api_key", type="password")
         button = st.button("Log Out")    
         if button:
-            st.session_state["password_correct"] = False 
             hf_email = ""
             hf_pass = ""
+            st.session_state["password_correct"] = False 
+
 
 
 
